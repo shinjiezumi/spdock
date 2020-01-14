@@ -33,3 +33,6 @@ out/
 
 ### docker
 /logs/
+
+### other
+.envrc
