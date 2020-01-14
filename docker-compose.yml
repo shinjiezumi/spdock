@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      TZ: Asia/Tokyo
+  db:
+    build: docker/mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_DATABASE: spdock
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
